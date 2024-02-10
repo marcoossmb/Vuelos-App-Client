@@ -1,0 +1,19 @@
+/* Estilo del cuerpo de la página */
+body {
+    background-image: url(../assets/images/fondo.jpg);
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    font-family: "arial";
+    margin: 0;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #000;
+}
+
+.bg-nav {
+    background-color: #EFE0C1;
+}
