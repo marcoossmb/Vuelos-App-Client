@@ -26,7 +26,6 @@ class PasajeController {
     public function mostrarUnPasaje() {
         $id = $_GET['id'];
 
-        // Obtener el objeto stdClass directamente
         $objeto_res = $this->service->request_uno($id);
 
         // Crear un nuevo objeto Pasaje con los valores adecuados
@@ -41,5 +40,13 @@ class PasajeController {
 
         // Ahora puedes utilizar $pasajeOne según sea necesario
         $this->view->mostrarUnPasaje($pasajeOne);
+    }
+    
+        public function borrarPasaje() {
+        $id = $_GET['id'];
+
+        $this->service->request_delete($id);
+
+        header('Location: ./index.php?controller=Pasaje&action=mostrar');
     }
 }
