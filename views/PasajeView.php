@@ -2,7 +2,7 @@
 
 class PasajeView {
 
-    public function mostrarPasajes($pasajesAll) {
+    public function mostrarPasajes($pasajes, $selectPasajero, $selectIdentificador) {
         ?>
         <!-- INICIO HEADER -->
         <header>
@@ -27,6 +27,26 @@ class PasajeView {
         <!-- FIN HEADER -->
         <div class="container bg-white rounded p-5 mt-3">
             <h1 class="text-center mt-3">Pasajes</h1>
+            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Insertar Pasaje</a>
+            <?php
+            if (isset($_GET["check"])) {
+                if ($_GET["check"] == 'true') {
+                    ?>
+                    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                        <strong>Pasaje insertado correctamente</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <?php
+                } else {
+                    ?>
+                    <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                        <strong>Error al insertar el pasaje. Por favor, inténtelo de nuevo más tarde.</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <?php
+                }
+            }
+            ?>
             <!-- INICIO TABLA -->
             <table class="table mt-5">
                 <thead>
@@ -42,7 +62,7 @@ class PasajeView {
                 </thead>
                 <tbody>
                     <?php
-                    foreach ($pasajesAll as $pasaje) {
+                    foreach ($pasajes as $pasaje) {
                         ?>
                         <tr>
                             <td><?php echo $pasaje->getIdpasaje(); ?></td>
@@ -61,6 +81,76 @@ class PasajeView {
                 </tbody>
             </table>
             <!-- FIN TABLA -->
+
+            <!-- INICIO MODAL -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title" id="exampleModalLabel">Insertar Pasaje</h2>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="row g-3" action="./index.php?controller=Pasaje&action=insertarPasaje" method="POST">
+                                <div class="col-md-6">
+                                    <label class="form-label">Selecciona Pasajero:</label><br>
+                                    <select name="pasajero">
+                                        <?php
+                                        foreach ($selectPasajero as $pasaje) {
+                                            ?>
+                                            <option value="<?php echo $pasaje->getPasajerocod(); ?>"><?php echo $pasaje->getIdpasaje(); ?></option>
+                                            <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Selecciona Identificador:</label><br>
+                                    <select name="identificador">
+                                        <?php
+                                        foreach ($selectIdentificador as $pasaje) {
+                                            ?>
+                                            <option value="<?php echo $pasaje->getIdentificador(); ?>"><?php echo $pasaje->getIdentificador(); ?></option>
+                                            <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Número de Asiento</label>
+                                    <input type="number" class="form-control" id="numAsiento" name="numAsiento" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">PVP</label>
+                                    <input type="number" class="form-control" id="pvp" name="pvp" required>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label">Marca la clase:</label><br>
+                                    <div class="d-flex justify-content-evenly">
+                                        <div>
+                                            <input class="form-check-input" type="radio" name="clase" value="Turista" checked>
+                                            <label class="form-check-label">TURISTA</label>
+                                        </div>
+                                        <div>
+                                            <input class="form-check-input" type="radio" name="clase" value="Primera">
+                                            <label class="form-check-label">PRIMERA</label>
+                                        </div>
+                                        <div>
+                                            <input class="form-check-input" type="radio" name="clase" value="Business">
+                                            <label class="form-check-label">BUSINESS</label>
+                                        </div>                                        
+                                    </div>
+                                </div>
+                                <div class="modal-footer col-12">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-primary">Insertar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN MODAL -->
         </div>
         <?php
         // Fin del contenedor

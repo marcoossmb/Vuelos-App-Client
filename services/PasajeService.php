@@ -2,7 +2,7 @@
 
 class PasajeService {
 
-        //GET
+    //GET
     function request_curl() {
         $urlmiservicio = "http://localhost/_servWeb/restfulApiVuelos/Pasajes.php";
         $conexion = curl_init();
@@ -46,7 +46,7 @@ class PasajeService {
         }
         curl_close($conexion);
     }
-    
+
     //POST Van datos, se pone el Content-Length del envío
     function request_post($pasajerocod, $identificador, $numasiento, $clase, $pvp) {
         $envio = json_encode(array("pasajerocod" => $pasajerocod, "identificador" => $identificador, "numasiento" => $numasiento, "clase" => $clase, "pvp" => $pvp));
@@ -64,11 +64,17 @@ class PasajeService {
         curl_setopt($conexion, CURLOPT_RETURNTRANSFER, true);
 
         $res = curl_exec($conexion);
-        if ($res) {
-            echo "<br>Salida request_post<br>";
-            print_r($res);
+        // Verificar si la respuesta no está vacía y si contiene un mensaje de error
+        if ($res !== false && !empty($res)) {
+            $response = json_decode($res, true);
+            if (isset($response['resultado']) && strpos($response['resultado'], 'ERROR') !== false) {
+                header('Location: ./index.php?controller=Pasaje&action=mostrar&check=false');
+                exit();
+            }
         }
         curl_close($conexion);
+
+        return true;
     }
 
     //PUT  para modificar

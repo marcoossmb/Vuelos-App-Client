@@ -11,16 +11,29 @@ class PasajeController {
     }
 
     public function mostrar() {
+        // Decodificar el JSON devuelto por la API
+        $pasajesAll = json_decode($this->service->request_curl(), true);
 
-        $pasajes = json_decode($this->service->request_curl(), true);
-
-        $pasajesAll = [];
-
-        foreach ($pasajes as $pasaje) {
-            $pasajesAll[] = new Pasaje($pasaje['idpasaje'], $pasaje['pasajerocod'], $pasaje['identificador'], $pasaje['numasiento'], $pasaje['clase'], $pasaje['pvp']);
+        // Asignar los datos de registros1 a la variable $pasajes
+        $pasajes = [];
+        foreach ($pasajesAll["registros1"] as $pasaje) {
+            $pasajes[] = new Pasaje($pasaje['idpasaje'], $pasaje['nombre'], $pasaje['identificador'], $pasaje['numasiento'], $pasaje['clase'], $pasaje['pvp']);
         }
 
-        $this->view->mostrarPasajes($pasajesAll);
+        // Asignar los datos de registros2 a la variable $selectPasajero
+        $selectPasajero = [];
+        foreach ($pasajesAll["registros2"] as $pasaje) {
+            $selectPasajero[] = new Pasaje($pasaje['nombre'], $pasaje['pasajerocod'], $pasaje['nombre'], $pasaje['nombre'], $pasaje['nombre'], $pasaje['nombre']);
+        }
+
+        // Asignar los datos de registros3 a la variable $selectIdentificador
+        $selectIdentificador = [];
+        foreach ($pasajesAll["registros3"] as $pasaje) {
+            $selectIdentificador[] = new Pasaje($pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador']);
+        }
+
+        // Pasar los objetos a la vista
+        $this->view->mostrarPasajes($pasajes, $selectPasajero, $selectIdentificador);
     }
 
     public function mostrarUnPasaje() {
@@ -38,15 +51,32 @@ class PasajeController {
                 $objeto_res->pvp
         );
 
-        // Ahora puedes utilizar $pasajeOne según sea necesario
+        // Pasar el objeto Pasaje a la vista
         $this->view->mostrarUnPasaje($pasajeOne);
     }
-    
-        public function borrarPasaje() {
+
+    public function borrarPasaje() {
         $id = $_GET['id'];
 
         $this->service->request_delete($id);
 
         header('Location: ./index.php?controller=Pasaje&action=mostrar');
+    }
+
+    public function insertarPasaje() {
+        
+        $pasajerocod = $_POST['pasajero'];
+        $identificador = $_POST['identificador'];
+        $numasiento = $_POST['numAsiento'];
+        $clase = $_POST['clase'];
+        $pvp = $_POST['pvp'];
+        
+        $res = $this->service->request_post($pasajerocod, $identificador, $numasiento, $clase, $pvp);
+
+        if ($res == true) {
+            header('Location: ./index.php?controller=Pasaje&action=mostrar&check=true');
+        } else {
+            header('Location: ./index.php?controller=Pasaje&action=mostrar&check=false');
+        }
     }
 }
