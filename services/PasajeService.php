@@ -94,11 +94,17 @@ class PasajeService {
         curl_setopt($conexion, CURLOPT_RETURNTRANSFER, true);
 
         $res = curl_exec($conexion);
-        if ($res) {
-            echo "<br>Salida request_put<br>";
-            print_r($res);
-        }
         curl_close($conexion);
+
+        if ($res) {
+            // Verificar si la respuesta contiene un mensaje de error
+            $response = json_decode($res, true);
+            if (isset($response['mensaje']) && strpos($response['mensaje'], 'ERROR') !== false) {
+                return $response['mensaje'];
+            } else {
+                return true;
+            }
+        }
     }
 
     //DELETE para borrar
