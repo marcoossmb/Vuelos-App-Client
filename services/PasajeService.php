@@ -64,17 +64,17 @@ class PasajeService {
         curl_setopt($conexion, CURLOPT_RETURNTRANSFER, true);
 
         $res = curl_exec($conexion);
-        // Verificar si la respuesta no está vacía y si contiene un mensaje de error
-        if ($res !== false && !empty($res)) {
+        curl_close($conexion);
+        
+        if ($res) {
+            // Verificar si la respuesta contiene un mensaje de error
             $response = json_decode($res, true);
             if (isset($response['resultado']) && strpos($response['resultado'], 'ERROR') !== false) {
-                header('Location: ./index.php?controller=Pasaje&action=mostrar&check=false');
-                exit();
+                return $response['resultado'];
+            } else {
+                return true;
             }
         }
-        curl_close($conexion);
-
-        return true;
     }
 
     //PUT  para modificar
@@ -122,9 +122,11 @@ class PasajeService {
         curl_setopt($conexion, CURLOPT_RETURNTRANSFER, true);
 
         $res = curl_exec($conexion);
-        if ($res) {
-            echo "<br>Salida request_delete<br>";
-            print_r($res);
+        $res_dec = json_decode($res, true);
+        if ($res_dec['resultado'] == true) {            
+            return true;
+        } else {
+            return false;
         }
         curl_close($conexion);
     }

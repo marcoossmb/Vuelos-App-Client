@@ -58,9 +58,30 @@ class PasajeController {
     public function borrarPasaje() {
         $id = $_GET['id'];
 
-        $this->service->request_delete($id);
+        $res = $this->service->request_delete($id);
 
-        header('Location: ./index.php?controller=Pasaje&action=mostrar');
+        if ($res == true) {
+            header('Location: ./index.php?controller=Pasaje&action=mostrar&delete=true');
+        } else {
+            header('Location: ./index.php?controller=Pasaje&action=mostrar&delete=false');
+        }                
+    }
+
+    public function mostrarInsertar() {
+
+        $pasajesAll = json_decode($this->service->request_curl(), true);
+
+        $selectPasajero = [];
+        foreach ($pasajesAll["registros2"] as $pasaje) {
+            $selectPasajero[] = new Pasaje($pasaje['nombre'], $pasaje['pasajerocod'], $pasaje['nombre'], $pasaje['nombre'], $pasaje['nombre'], $pasaje['nombre']);
+        }
+
+        $selectIdentificador = [];
+        foreach ($pasajesAll["registros3"] as $pasaje) {
+            $selectIdentificador[] = new Pasaje($pasaje['identificador'], $pasaje['aeropuertoorigen'], $pasaje['aeropuertodestino'], $pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador']);
+        }
+
+        $this->view->mostrarInsertar($selectPasajero, $selectIdentificador);
     }
 
     public function insertarPasaje() {
@@ -71,12 +92,18 @@ class PasajeController {
         $clase = $_POST['clase'];
         $pvp = $_POST['pvp'];
 
-        $res = $this->service->request_post($pasajerocod, $identificador, $numasiento, $clase, $pvp);
+        $resultado = $this->service->request_post($pasajerocod, $identificador, $numasiento, $clase, $pvp);
 
-        if ($res == true) {
-            header('Location: ./index.php?controller=Pasaje&action=mostrar&check=true');
-        } else {
-            header('Location: ./index.php?controller=Pasaje&action=mostrar&check=false');
+        // Construir la URL base
+        $baseURL = "./index.php?controller=Pasaje&action=mostrar";
+        
+        // Verificar el resultado
+        if ($resultado === true) {
+            // Inserción exitosa
+            header('Location: ' . $baseURL . '&check=true');
+        } elseif (is_string($resultado)) {
+            // Si el resultado es una cadena, significa que hubo un error personalizado
+            header('Location: ' . $baseURL . '&check=false&error=' . urlencode($resultado));
         }
     }
 
@@ -91,7 +118,7 @@ class PasajeController {
 
         $selectIdentificador = [];
         foreach ($pasajesAll["registros3"] as $pasaje) {
-            $selectIdentificador[] = new Pasaje($pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador']);
+            $selectIdentificador[] = new Pasaje($pasaje['identificador'], $pasaje['aeropuertoorigen'], $pasaje['aeropuertodestino'], $pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador']);
         }
 
         $this->view->mostrarModificar($selectPasajero, $selectIdentificador);
