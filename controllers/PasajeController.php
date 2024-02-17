@@ -37,7 +37,7 @@ class PasajeController {
     }
 
     public function mostrarUnPasaje() {
-        $id = $_GET['id'];
+        $id = $_POST['id'];
 
         $objeto_res = $this->service->request_uno($id);
 
@@ -64,7 +64,7 @@ class PasajeController {
             header('Location: ./index.php?controller=Pasaje&action=mostrar&delete=true');
         } else {
             header('Location: ./index.php?controller=Pasaje&action=mostrar&delete=false');
-        }                
+        }
     }
 
     public function mostrarInsertar() {
@@ -96,7 +96,7 @@ class PasajeController {
 
         // Construir la URL base
         $baseURL = "./index.php?controller=Pasaje&action=mostrar";
-        
+
         // Verificar el resultado
         if ($resultado === true) {
             // Inserción exitosa
@@ -121,7 +121,14 @@ class PasajeController {
             $selectIdentificador[] = new Pasaje($pasaje['identificador'], $pasaje['aeropuertoorigen'], $pasaje['aeropuertodestino'], $pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador']);
         }
 
-        $this->view->mostrarModificar($selectPasajero, $selectIdentificador);
+        $idpasaje = $_POST['idpasaje'];
+        $pasajerocod = $_POST['pasajerocod'];
+        $identificador = $_POST['identificador'];
+        $numasiento = $_POST['numasiento'];
+        $clase = $_POST['clase'];
+        $pvp = $_POST['pvp'];
+
+        $this->view->mostrarModificar($idpasaje, $pasajerocod, $identificador, $numasiento, $clase, $pvp, $selectPasajero, $selectIdentificador);
     }
 
     public function modificarPasaje() {
@@ -136,15 +143,15 @@ class PasajeController {
         $resultado = $this->service->request_put($id, $pasajerocod, $identificador, $numasiento, $clase, $pvp);
 
         // Construir la URL base
-        $baseURL = "./index.php?controller=Pasaje&action=mostrarUnPasaje&id=" . $_GET['id'];
+        $baseURL = "./index.php?controller=Pasaje&action=mostrar";
 
         // Verificar el resultado
         if ($resultado === true) {
             // Actualización exitosa
-            header('Location: ' . $baseURL . '&check=true');
+            header('Location: ' . $baseURL . '&mody=true');
         } elseif (is_string($resultado)) {
             // Si el resultado es una cadena, significa que hubo un error personalizado
-            header('Location: ' . $baseURL . '&check=false&error=' . urlencode($resultado));
+            header('Location: ' . $baseURL . '&mody=false&error=' . urlencode($resultado));
         }
     }
 }
