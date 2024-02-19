@@ -2,7 +2,7 @@
 
 class PasajeView {
 
-    public function mostrarPasajes($pasajes, $selectPasajero, $selectIdentificador) {
+    public function mostrarPasajes($pasajes) {
         include './lib/templates/header.php';
         ?>
 

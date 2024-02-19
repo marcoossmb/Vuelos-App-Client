@@ -12,6 +12,9 @@
                     <li class="nav-item">
                         <a class="nav-link mx-2" href="./index.php?controller=Pasaje&action=mostrar"><i class="fa-solid fa-ticket pe-2"></i>Pasajes</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-2" href="./index.php?controller=Vuelo&action=mostrarIdentificadores"><i class="fa-solid fa-passport pe-2"></i>Identificadores de vuelos</a>
+                    </li>
                 </ul>
             </div>
         </div>

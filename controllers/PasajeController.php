@@ -20,20 +20,8 @@ class PasajeController {
             $pasajes[] = new Pasaje($pasaje['idpasaje'], $pasaje['nombre'], $pasaje['identificador'], $pasaje['numasiento'], $pasaje['clase'], $pasaje['pvp']);
         }
 
-        // Asignar los datos de registros2 a la variable $selectPasajero
-        $selectPasajero = [];
-        foreach ($pasajesAll["registros2"] as $pasaje) {
-            $selectPasajero[] = new Pasaje($pasaje['nombre'], $pasaje['pasajerocod'], $pasaje['nombre'], $pasaje['nombre'], $pasaje['nombre'], $pasaje['nombre']);
-        }
-
-        // Asignar los datos de registros3 a la variable $selectIdentificador
-        $selectIdentificador = [];
-        foreach ($pasajesAll["registros3"] as $pasaje) {
-            $selectIdentificador[] = new Pasaje($pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador'], $pasaje['identificador']);
-        }
-
         // Pasar los objetos a la vista
-        $this->view->mostrarPasajes($pasajes, $selectPasajero, $selectIdentificador);
+        $this->view->mostrarPasajes($pasajes );
     }
 
     public function mostrarUnPasaje() {
