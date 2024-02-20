@@ -239,15 +239,15 @@ class PasajeView {
                             <label class="form-label">Marca la clase:</label><br>
                             <div class="d-flex justify-content-evenly">
                                 <div>
-                                    <input type="radio" name="clase" value="Turista" checked>
+                                    <input type="radio" name="clase" value="TURISTA" <?php if ($clase === 'TURISTA') echo 'checked'; ?>>
                                     <label class="form-check-label">TURISTA</label>
                                 </div>
                                 <div>
-                                    <input type="radio" name="clase" value="Primera">
+                                    <input type="radio" name="clase" value="PRIMERA" <?php if ($clase === 'PRIMERA') echo 'checked'; ?>>
                                     <label class="form-check-label">PRIMERA</label>
                                 </div>
                                 <div>
-                                    <input type="radio" name="clase" value="Business">
+                                    <input type="radio" name="clase" value="BUSINESS" <?php if ($clase === 'BUSINESS') echo 'checked'; ?>>
                                     <label class="form-check-label">BUSINESS</label>
                                 </div>                                        
                             </div>
@@ -336,5 +336,71 @@ class PasajeView {
         </div>
         <?php
         // Fin del contenedor
+    }
+
+    public function mostrarDetallePasaje($pasajes, $pasajeros) {
+        include './lib/templates/header.php';
+        ?>
+        <div class="container bg-white rounded p-5 mt-3">
+            <!-- INICIO TABLA -->
+            <table class="table mt-5">
+                <thead>
+                    <tr>
+                        <th>Id de pasaje</th>
+                        <th>Código pasajero</th>
+                        <th>Número de asiento</th>
+                        <th>Clase</th>
+                        <th>Pvp</th>
+                        <th>Nombre pasajero</th>
+                        <th>País pasajero</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $count = count($pasajes);
+
+                    for ($i = 0; $i < $count; $i++) {
+                        $pasaje = $pasajes[$i];
+                        $pasajero = $pasajeros[$i];
+
+                        $identificador = $pasaje->getIdentificador();
+                        ?>
+                        <tr>
+                            <td><?php echo $pasaje->getIdpasaje(); ?></td>
+                            <td><?php echo $pasaje->getPasajerocod(); ?></td>
+                            <td><?php echo $pasaje->getNumasiento(); ?></td>
+                            <td><?php echo $pasaje->getClase(); ?></td>
+                            <td><?php echo $pasaje->getPvp(); ?>€</td>
+                            <td><?php echo $pasajero->getNombre(); ?></td>
+                            <td><?php echo $pasajero->getPais(); ?></td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                </tbody>
+            </table>
+            <!-- FIN TABLA -->
+            <form action="./index.php?controller=Vuelo&action=detalleIdentif" method="POST">
+                <input type="hidden" name="identificador" value="<?php echo $identificador ?>">
+                <button type="submit" class="btn btn-secondary mt-3">Volver</button>
+            </form>
+        </div>
+        <?php
+        // Fin del contenedor
+    }
+
+    public function mostrarError($identificador) {
+        include './lib/templates/header.php';
+        ?>
+        <div class="container bg-white rounded p-5 mt-5">
+            <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                <strong>NO EXISTEN PASAJES PARA ESTE VUELO</strong>
+            </div>
+            <form action="./index.php?controller=Vuelo&action=detalleIdentif" method="POST">
+                <input type="hidden" name="identificador" value="<?php echo $identificador ?>">
+                <button type="submit" class="btn btn-secondary mt-3">Volver</button>
+            </form>
+        </div>
+        <?php
     }
 }

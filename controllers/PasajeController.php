@@ -21,7 +21,7 @@ class PasajeController {
         }
 
         // Pasar los objetos a la vista
-        $this->view->mostrarPasajes($pasajes );
+        $this->view->mostrarPasajes($pasajes);
     }
 
     public function mostrarUnPasaje() {
@@ -140,6 +140,27 @@ class PasajeController {
         } elseif (is_string($resultado)) {
             // Si el resultado es una cadena, significa que hubo un error personalizado
             header('Location: ' . $baseURL . '&mody=false&error=' . urlencode($resultado));
+        }
+    }
+
+    public function mostrarDetallePasaje() {
+        $identificador = $_POST['identificador'];
+
+        $res = json_decode($this->service->request_detalle($identificador), true);
+
+        if ($res == false) {
+            $this->view->mostrarError($identificador);
+        } else {
+            $pasajes = [];
+            foreach ($res["registros1"] as $pasaje) {
+                $pasajes[] = new Pasaje($pasaje['idpasaje'], $pasaje['pasajerocod'], $pasaje['identificador'], $pasaje['numasiento'], $pasaje['clase'], $pasaje['pvp']);
+            }
+
+            $pasajeros = [];
+            foreach ($res["registros2"] as $pasaje) {
+                $pasajeros[] = new Pasajero($pasaje['pasajerocod'], $pasaje['nombre'], $pasaje['tlf'], $pasaje['direccion'], $pasaje['pais']);
+            }
+            $this->view->mostrarDetallePasaje($pasajes, $pasajeros);
         }
     }
 }

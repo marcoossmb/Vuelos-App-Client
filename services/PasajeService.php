@@ -65,7 +65,7 @@ class PasajeService {
 
         $res = curl_exec($conexion);
         curl_close($conexion);
-        
+
         if ($res) {
             // Verificar si la respuesta contiene un mensaje de error
             $response = json_decode($res, true);
@@ -123,8 +123,29 @@ class PasajeService {
 
         $res = curl_exec($conexion);
         $res_dec = json_decode($res, true);
-        if ($res_dec['resultado'] == true) {            
+        if ($res_dec['resultado'] == true) {
             return true;
+        } else {
+            return false;
+        }
+        curl_close($conexion);
+    }
+
+    function request_detalle($identificador) {
+        $urlmiservicio = "http://localhost/_servWeb/restfulApiVuelos/Pasajes.php?identificador=" . $identificador;
+        $conexion = curl_init();
+        //Url de la petición
+        curl_setopt($conexion, CURLOPT_URL, $urlmiservicio);
+        //Tipo de petición
+        curl_setopt($conexion, CURLOPT_HTTPGET, TRUE);
+        //Tipo de contenido de la respuesta
+        curl_setopt($conexion, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
+        //para recibir una respuesta
+        curl_setopt($conexion, CURLOPT_RETURNTRANSFER, true);
+
+        $res = curl_exec($conexion);
+        if ($res) {
+            return($res);
         } else {
             return false;
         }

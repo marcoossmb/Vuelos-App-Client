@@ -65,7 +65,7 @@ class VueloView {
                         }
                         ?>
                     </select><br>
-                    <button type="submit" class="btn btn-secondary mt-3">Seleccionar</button> 
+                    <button type="submit" class="btn btn-warning mt-3">Seleccionar</button> 
                 </form>
             </div>
         </div>
@@ -82,11 +82,11 @@ class VueloView {
             <div class="d-flex justify-content-center">
                 <form action="./index.php?controller=Vuelo&action=detalleVuel" method="POST" class="me-3">
                     <input type="hidden" name="identificador" value="<?php echo $ident ?>">
-                    <button type="submit" class="btn btn-secondary mt-3">Detalle vuelo</button>
+                    <button type="submit" class="btn btn-warning mt-3">Detalle vuelo</button>
                 </form>
-                <form action="./index.php?controller=Vuelo&action=detalleIdentif" method="POST">
+                <form action="./index.php?controller=Pasaje&action=mostrarDetallePasaje" method="POST">
                     <input type="hidden" name="identificador" value="<?php echo $ident ?>">
-                    <button type="submit" class="btn btn-secondary mt-3">Detalle pasaje</button>
+                    <button type="submit" class="btn btn-warning mt-3">Detalle pasaje</button>
                 </form>
             </div>
             <a href="./index.php?controller=Vuelo&action=mostrarIdentificadores" class="btn btn-secondary mt-3">Volver</a>            
