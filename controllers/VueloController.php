@@ -10,7 +10,6 @@ class VueloController {
         $this->view = new VueloView();
     }
 
-    // Muestra el login
     public function mostrar() {
 
         $vuelos = json_decode($this->service->request_curl(), true);

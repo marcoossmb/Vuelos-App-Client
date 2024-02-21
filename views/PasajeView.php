@@ -342,17 +342,18 @@ class PasajeView {
         include './lib/templates/header.php';
         ?>
         <div class="container bg-white rounded p-5 mt-3">
+            <h1 class="text-center mt-3">Detalle Pasajes</h1>
             <!-- INICIO TABLA -->
             <table class="table mt-5">
                 <thead>
                     <tr>
                         <th>Id de pasaje</th>
                         <th>Código pasajero</th>
+                        <th>Nombre pasajero</th>
+                        <th>País pasajero</th>                        
                         <th>Número de asiento</th>
                         <th>Clase</th>
                         <th>Pvp</th>
-                        <th>Nombre pasajero</th>
-                        <th>País pasajero</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -368,11 +369,11 @@ class PasajeView {
                         <tr>
                             <td><?php echo $pasaje->getIdpasaje(); ?></td>
                             <td><?php echo $pasaje->getPasajerocod(); ?></td>
+                            <td><?php echo $pasajero->getNombre(); ?></td>
+                            <td><?php echo $pasajero->getPais(); ?></td>
                             <td><?php echo $pasaje->getNumasiento(); ?></td>
                             <td><?php echo $pasaje->getClase(); ?></td>
                             <td><?php echo $pasaje->getPvp(); ?>€</td>
-                            <td><?php echo $pasajero->getNombre(); ?></td>
-                            <td><?php echo $pasajero->getPais(); ?></td>
                         </tr>
                         <?php
                     }

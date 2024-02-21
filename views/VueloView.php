@@ -86,7 +86,7 @@ class VueloView {
                 </form>
                 <form action="./index.php?controller=Pasaje&action=mostrarDetallePasaje" method="POST">
                     <input type="hidden" name="identificador" value="<?php echo $ident ?>">
-                    <button type="submit" class="btn btn-warning mt-3">Detalle pasaje</button>
+                    <button type="submit" class="btn btn-warning mt-3">Detalle pasajes</button>
                 </form>
             </div>
             <a href="./index.php?controller=Vuelo&action=mostrarIdentificadores" class="btn btn-secondary mt-3">Volver</a>            
@@ -99,7 +99,7 @@ class VueloView {
         include './lib/templates/header.php';
         ?>
         <div class="container bg-white rounded p-5 mt-3">
-            <h1 class="text-center mt-3">Identificadores de vuelos</h1>
+            <h1 class="text-center mt-3">Detalle Vuelo</h1>
             <!-- INICIO TABLA -->
             <table class="table mt-5">
                 <thead>
