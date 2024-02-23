@@ -1,13 +1,17 @@
 <?php
+// Incluyo todos los servicios
 include './services/VueloService.php';
 include './services/PasajeService.php';
 
+// Incluyo todos los controladores
 include './controllers/VueloController.php';
 include './controllers/PasajeController.php';
 
+// Incluyo todos las vistas
 include './views/VueloView.php';
 include './views/PasajeView.php';
 
+// Incluyo todos los objetos
 include './services/models/Vuelo.php';
 include './services/models/Pasaje.php';
 include './services/models/Pasajero.php';

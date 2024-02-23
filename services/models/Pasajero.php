@@ -1,13 +1,16 @@
 <?php
 
+// Definición de la clase Pasajero
 class Pasajero {
 
+    // Definición de los atributos
     private $pasajerocod;
     private $nombre;
     private $tlf;
     private $direccion;
     private $pais;
 
+    // Método constructor
     public function __construct($pasajerocod, $nombre, $tlf, $direccion, $pais) {
         $this->pasajerocod = $pasajerocod;
         $this->nombre = $nombre;
@@ -16,6 +19,7 @@ class Pasajero {
         $this->pais = $pais;
     }
 
+    // Métodos Getter y Setter
     public function getPasajerocod() {
         return $this->pasajerocod;
     }
@@ -56,6 +60,7 @@ class Pasajero {
         $this->pais = $pais;
     }
 
+    // Método destructor
     public function __destruct() {
         
     }

@@ -11,7 +11,7 @@
     </head>
     <body>
             <?php
-// Incluye el archivo frontcontroller.php
+// Incluyo el archivo frontcontroller.php
             include 'frontcontroller.php';
             ?>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>

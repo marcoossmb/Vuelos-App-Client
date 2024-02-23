@@ -1,7 +1,9 @@
 <?php
 
+// Definición de la clase Pasaje
 class Pasaje {
 
+    // Definición de los atributos
     private $idpasaje;
     private $pasajerocod;
     private $identificador;
@@ -9,6 +11,7 @@ class Pasaje {
     private $clase;
     private $pvp;
 
+    // Método constructor
     public function __construct($idpasaje, $pasajerocod, $identificador, $numasiento, $clase, $pvp) {
         $this->idpasaje = $idpasaje;
         $this->pasajerocod = $pasajerocod;
@@ -18,6 +21,7 @@ class Pasaje {
         $this->pvp = $pvp;
     }
 
+    // Métodos Getter y Setter
     public function getIdpasaje() {
         return $this->idpasaje;
     }
@@ -66,6 +70,7 @@ class Pasaje {
         $this->pvp = $pvp;
     }
 
+    // Método destructor
     public function __destruct() {
         
     }

@@ -1,7 +1,9 @@
 <?php
 
+// Definición de la clase Vuelo
 class Vuelo {
 
+    // Definición de los atributos
     private $identificador;
     private $aeropuertoorigen;
     private $aeropuertodestino;
@@ -12,7 +14,9 @@ class Vuelo {
     private $paramextra2;
     private $paramextra3;
 
+    // Método constructor
     public function __construct($identificador, $aeropuertoorigen, $aeropuertodestino, $tipovuelo, $fechavuelo, $descuento, $paramextra1, $paramextra2, $paramextra3) {
+        // Inicializar los atributos con los valores parámetrados
         $this->identificador = $identificador;
         $this->aeropuertoorigen = $aeropuertoorigen;
         $this->aeropuertodestino = $aeropuertodestino;
@@ -24,6 +28,7 @@ class Vuelo {
         $this->paramextra3 = $paramextra3;
     }
 
+    // Métodos Getter y Setter
     public function getIdentificador() {
         return $this->identificador;
     }
@@ -96,6 +101,7 @@ class Vuelo {
         $this->paramextra3 = $paramextra3;
     }
 
+    // Método destructor
     public function __destruct() {
         
     }

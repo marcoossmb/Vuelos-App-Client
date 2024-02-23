@@ -1,13 +1,16 @@
 <?php
 
+// Definición de la clase Aeropuerto
 class Aeropuerto {
 
+    // Definición de los atributos
     private $codaeropuerto;
     private $nombre;
     private $ciudad;
     private $pais;
     private $tasa;
 
+    // Método constructor
     public function __construct($codaeropuerto, $nombre, $ciudad, $pais, $tasa) {
         $this->codaeropuerto = $codaeropuerto;
         $this->nombre = $nombre;
@@ -16,6 +19,7 @@ class Aeropuerto {
         $this->tasa = $tasa;
     }
 
+    // Métodos Getter y Setter
     public function getCodaeropuerto() {
         return $this->codaeropuerto;
     }
@@ -56,6 +60,7 @@ class Aeropuerto {
         $this->tasa = $tasa;
     }
 
+    // Método destructor
     public function __destruct() {
         
     }

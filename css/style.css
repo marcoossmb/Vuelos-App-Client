@@ -10,14 +10,15 @@ body {
     margin: 0;
 }
 
+/* Estilos para la navbar */
 .navbar-light .navbar-nav .nav-link {
   color: #000;
 }
-
 .bg-nav {
     background-color: #EFE0C1;
 }
 
+/* Estilo para ajustar un margen */
 .me-n {
     margin-right: 2px;
 }
