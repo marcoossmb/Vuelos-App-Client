@@ -314,15 +314,15 @@ class PasajeView {
                         <label class="form-label">Marca la clase:</label><br>
                         <div class="d-flex justify-content-evenly">
                             <div>
-                                <input type="radio" name="clase" value="Turista" checked>
+                                <input type="radio" name="clase" value="TURISTA" checked>
                                 <label class="form-check-label">TURISTA</label>
                             </div>
                             <div>
-                                <input type="radio" name="clase" value="Primera">
+                                <input type="radio" name="clase" value="PRIMERA">
                                 <label class="form-check-label">PRIMERA</label>
                             </div>
                             <div>
-                                <input type="radio" name="clase" value="Business">
+                                <input type="radio" name="clase" value="BUSINESS">
                                 <label class="form-check-label">BUSINESS</label>
                             </div>                                        
                         </div>
